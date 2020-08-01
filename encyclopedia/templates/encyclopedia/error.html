@@ -1,12 +1,10 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia : {{ title }}
+    Encyclopedia : Error
 {% endblock %}
 
-
 {% block body %}
-
-    {{ content|safe }}
+    <h3>{{title}} file do not exist on this server</h3>
 
 {% endblock %}
