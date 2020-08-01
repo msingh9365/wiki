@@ -12,13 +12,13 @@ def entry(request,title):
     file = util.get_entry(title)
     if file is None:
         return render(request,"encyclopedia/error.html",{
-            "title":title.capitalize()
+            "title":title
         })
 
     html = markdown2.markdown(file)
 
     return render(request,"encyclopedia/title.html",{
-        "title" : title.capitalize(),
+        "title" : title,
         "content" : html
     })
     
