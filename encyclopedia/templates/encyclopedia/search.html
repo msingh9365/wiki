@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Result
+{% endblock %}
+
+{% block body %}
+    {% if matches|length > 0 %}
+        <ul>
+            <p>Files matching the search '{{q}}'</p>
+            {% for match in matches %}
+                <li><a href="{% url 'entry' match  %}">{{match}}</a></li>
+            {% endfor %}
+        </ul>
+    {%else %}
+        <h4><strong>ERROR</strong> Not Found</h4>
+        <p>No file found matching '{{q}}'.</p>
+    {% endif %}
+{% endblock %}
