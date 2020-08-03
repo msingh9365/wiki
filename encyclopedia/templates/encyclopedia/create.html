@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Wiki:Create Page
+{% endblock %}
+
+{% block body %}
+    <h3>Create Page</h3>
+    <hr>
+    <div class="wrapper">
+
+        <form action="" method="post" autocomplete="off">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-primary">Save</button>
+            {% if error %}
+                <p class="error">{{error}}</p>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

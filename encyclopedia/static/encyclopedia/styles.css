@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: white;
+    overflow: hidden;
 }
 
 code {
@@ -13,8 +14,10 @@ h1 {
 }
 
 textarea {
-    height: 90vh;
-    width: 80%;
+    display: block;
+    height: 50vh;
+    width: 100%;
+    resize: none;
 }
 
 .main {
@@ -25,6 +28,8 @@ textarea {
     width: 100%;
     font-size: 15px;
     line-height: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .sidebar {
@@ -35,4 +40,21 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+.wrapper{
+    width: 60%;
+}
+
+.wrapper form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.wrapper button{
+    align-self: flex-start;
+}
+
+.error{
+    color:#dc3545
 }

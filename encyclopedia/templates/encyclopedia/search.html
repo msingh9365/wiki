@@ -1,13 +1,15 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Search Result
+    Wiki:Search Result
 {% endblock %}
 
 {% block body %}
+    <h3>Search Result</h3>
+    <hr>
     {% if matches|length > 0 %}
         <ul>
-            <p>Files matching the search '{{q}}'</p>
+            <p>Files matching the search query '{{q}}'</p>
             {% for match in matches %}
                 <li><a href="{% url 'entry' match  %}">{{match}}</a></li>
             {% endfor %}
