@@ -78,7 +78,6 @@ def edit(request,title):
         form = createPageForm(request.POST)
         if form.is_valid():
             head,content = form.cleaned_data["title"],form.cleaned_data["content"]
-            print(content)
             content = "#"+head + '\n' + content
             content = content.replace('\r','')
             util.save_entry(head,content)
@@ -96,6 +95,5 @@ def edit(request,title):
 def randomPage(request):
     entries_list = util.list_entries()
     index = random.randint(0,len(entries_list)-1)
-    title = entries_list[index]
-    print(title)
+    title = entries_list[index]    
     return redirect("entry",title = title)
