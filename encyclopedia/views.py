@@ -3,7 +3,7 @@ from django import forms
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-import re
+import random
 from django import forms
 from . import util
 import markdown2
@@ -92,3 +92,10 @@ def edit(request,title):
         "form":editForm,
         "title" : title
     })
+
+def randomPage(request):
+    entries_list = util.list_entries()
+    index = random.randint(0,len(entries_list)-1)
+    title = entries_list[index]
+    print(title)
+    return redirect("entry",title = title)
