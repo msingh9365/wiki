@@ -9,6 +9,17 @@ from . import util
 import markdown2
 
 
+
+class createPageForm(forms.Form):
+    title = forms.CharField(
+        label="Title", widget=forms.TextInput(attrs={"placeholder": "Title goes here"})
+    )
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={"placeholder": "Content goes here"}),
+        label="Content",
+    )
+
+
 def index(request):
     return render(request, "encyclopedia/index.html", {"entries": util.list_entries()})
 
@@ -30,20 +41,12 @@ def entry(request, title):
     file = util.get_entry(title)
     if file is None:
         return render(request, "encyclopedia/error.html", {"title": title})
-
+    
     html = markdown2.markdown(file)
 
     return render(request, "encyclopedia/title.html", {"title": title, "content": html})
 
 
-class createPageForm(forms.Form):
-    title = forms.CharField(
-        label="Title", widget=forms.TextInput(attrs={"placeholder": "Title goes here"})
-    )
-    content = forms.CharField(
-        widget=forms.Textarea(attrs={"placeholder": "Content goes here"}),
-        label="Content",
-    )
 
 
 def create(request):
@@ -69,3 +72,23 @@ def create(request):
 
     return render(request, "encyclopedia/create.html", {"form": createPageForm()})
 
+def edit(request,title):
+
+    if request.method == "POST":
+        form = createPageForm(request.POST)
+        if form.is_valid():
+            head,content = form.cleaned_data["title"],form.cleaned_data["content"]
+            print(content)
+            content = "#"+head + '\n' + content
+            content = content.replace('\r','')
+            util.save_entry(head,content)
+            return redirect("entry",title = head)
+
+    content = util.get_entry(title)
+    content = content[content.find('\n',0)+1:]
+    initial = {"title":title,"content":content}
+    editForm = createPageForm(initial)
+    return render(request,"encyclopedia/edit.html",{
+        "form":editForm,
+        "title" : title
+    })
